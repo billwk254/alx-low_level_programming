@@ -1,0 +1,43 @@
+# Compiler
+CC := gcc
+
+# Source files
+SRC := main.c school.c
+
+# Object files
+OBJ := $(SRC:.c=.o)
+
+# Executable name
+NAME := school
+
+# Remove command
+RM := rm -f
+
+# Compiler flags
+CFLAGS := -Wall -Werror -Wextra -pedantic
+
+# Rule to build the executable
+all: $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
+
+# Rule to compile source files
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Rule to clean temporary files and the executable
+clean:
+	$(RM) $(OBJ)
+
+# Rule to clean object files
+oclean:
+	$(RM) $(OBJ)
+
+# Rule to clean object files and the executable
+fclean: clean
+	$(RM) $(NAME)
+
+# Rule to force recompilation
+re: fclean all
+
+# Make the 'all' rule the default target
+.DEFAULT_GOAL := all
